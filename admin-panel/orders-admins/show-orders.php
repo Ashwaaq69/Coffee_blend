@@ -85,7 +85,9 @@
                             <th scope="col">Zip Code</th>
                             <th scope="col">Phone</th>
                             <th scope="col">Street Address</th>
+                            <th scope="col">Product Names</th>
                             <th scope="col">Total Price</th>
+                           
                             <th scope="col">Status</th>
                             <th scope="col">Update</th>
                             <th scope="col">Delete</th>
@@ -100,7 +102,9 @@
                             <td><?php echo $order->zip_code; ?></td>
                             <td><?php echo $order->phone; ?></td>
                             <td><?php echo $order->street_address; ?></td>
+                            <td><?php echo $order->product_names; ?></td>
                             <td>$<?php echo $order->total_price; ?></td>
+                           
                             <td><?php echo $order->status; ?></td>
                             <td><a href="change-status.php?id=<?php echo $order->id; ?>"
                                     class="btn btn-warning text-white">Update</a></td>
