@@ -5,7 +5,7 @@ require "../config/config.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: " . APPURL);
-    exit; // Ensure no further code runs after redirect
+    exit;
 }
 
 $products = $conn->query("SELECT * FROM cart WHERE user_id='$_SESSION[user_id]'");

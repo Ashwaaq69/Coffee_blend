@@ -1,4 +1,5 @@
-<?php require "../includes/header.php"; ?>
+<?php ob_start();
+  require "../includes/header.php"; ?>
 <?php require "../config/config.php"; ?>
 
 <?php 

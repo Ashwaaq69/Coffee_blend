@@ -1,9 +1,40 @@
-<?php require "../layouts/header.php"; ?>    
+<?php require "../layouts/header.php"; ?>
 <?php require "../../config/config.php"; ?>
 
 <?php 
   if(!isset($_SESSION['admin_name'])) {
     header("location: ".ADMINURL."/admins/login-admins.php");
+  }
+
+  if(isset($_POST['submit'])) {
+
+    if(empty($_POST['name']) OR empty($_POST['price']) OR empty($_POST['type']) OR empty($_FILES['image']['name'])) {
+      echo "<script>alert('One or more inputs are empty');</script>";
+    } elseif (!preg_match("/^[a-zA-Z\s]*$/", $_POST['name'])) {
+      echo "<script>alert('Product name must contain only letters and spaces');</script>";
+    } elseif (!is_numeric($_POST['price'])) {
+      echo "<script>alert('Price must be a valid number');</script>";
+    } else {
+      $name = $_POST['name'];
+      $price = $_POST['price'];
+      $type = $_POST['type'];
+      $image = $_FILES['image']['name'];
+      $image_tmp = $_FILES['image']['tmp_name'];
+
+      move_uploaded_file($image_tmp, "images/$image");
+
+      $insert = $conn->prepare("INSERT INTO products (name, price, type, image)
+       VALUES (:name, :price, :type, :image)");
+
+      $insert->execute([
+        ":name" => $name,
+        ":price" => $price,
+        ":type" => $type,
+        ":image" => $image
+      ]);
+
+      header("location: show-products.php");
+    }
   }
 
   // Get the current page number, default to 1

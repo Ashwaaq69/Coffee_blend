@@ -3,10 +3,16 @@
     session_start();
     define("APPURL", "http://localhost/coffee-blend");
     define("IMAGEPRODUCTS", "http://localhost/coffee-blend/admin-panel/products-admins/images");
-// Initialize cart count if not set
-if (!isset($_SESSION['cart_count'])) {
-  $_SESSION['cart_count'] = 0;
-}
+
+    // Initialize cart count if not set
+    if (!isset($_SESSION['cart_count'])) {
+        $_SESSION['cart_count'] = 0;
+    }
+
+    // Check if the cart is empty and set cart_count to 0
+    if (isset($_SESSION['cart']) && empty($_SESSION['cart'])) {
+        $_SESSION['cart_count'] = 0;
+    }
 
 ?>
 <!DOCTYPE html>
@@ -23,23 +29,16 @@ if (!isset($_SESSION['cart_count'])) {
 
     <link rel="stylesheet" href="<?php echo APPURL; ?>/css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo APPURL; ?>/css/animate.css">
-
     <link rel="stylesheet" href="<?php echo APPURL; ?>/css/owl.carousel.min.css">
     <link rel="stylesheet" href="<?php echo APPURL; ?>/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="<?php echo APPURL; ?>/css/magnific-popup.css">
-
     <link rel="stylesheet" href="<?php echo APPURL; ?>/css/aos.css">
-
     <link rel="stylesheet" href="<?php echo APPURL; ?>/css/ionicons.min.css">
-
     <link rel="stylesheet" href="<?php echo APPURL; ?>/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="<?php echo APPURL; ?>/css/jquery.timepicker.css">
-
-
     <link rel="stylesheet" href="<?php echo APPURL; ?>/css/flaticon.css">
     <link rel="stylesheet" href="<?php echo APPURL; ?>/css/icomoon.css">
     <link rel="stylesheet" href="<?php echo APPURL; ?>/css/style.css">
-    
 </head>
 
 <style>
@@ -47,7 +46,6 @@ if (!isset($_SESSION['cart_count'])) {
         position: relative;
         font-size: 24px;
         /* Adjust size as needed */
-
     }
 
     .cart .cart-count {
@@ -61,7 +59,8 @@ if (!isset($_SESSION['cart_count'])) {
         font-size: 12px;
         font-weight: bold;
     }
-    </style>
+</style>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
@@ -76,7 +75,6 @@ if (!isset($_SESSION['cart_count'])) {
                     <li class="nav-item"><a href="<?php echo APPURL;?>/menu.php" class="nav-link">Menu</a></li>
                     <li class="nav-item"><a href="<?php echo APPURL;?>/services.php" class="nav-link">Services</a></li>
                     <li class="nav-item"><a href="<?php echo APPURL;?>/about.php" class="nav-link">About</a></li>
-
                     <li class="nav-item"><a href="<?php echo APPURL;?>/contact.php" class="nav-link">Contact</a></li>
                     <?php if(isset($_SESSION['username'])) : ?>
                     <li class="nav-item cart">
@@ -85,9 +83,6 @@ if (!isset($_SESSION['cart_count'])) {
                             <span class="cart-count"><?php echo $_SESSION['cart_count']; ?></span>
                         </a>
                     </li>
-
-
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -109,7 +104,6 @@ if (!isset($_SESSION['cart_count'])) {
                     <li class="nav-item"><a href="<?php echo APPURL; ?>/auth/register.php" class="nav-link">register</a>
                     </li>
                     <?php endif; ?>
-
                 </ul>
             </div>
         </div>
